@@ -67,16 +67,16 @@ $('#btnSave').click(()=>{
 $('#btnTrack').click(()=>{
   
 
-  changeBtnStyle('btnTrack','Tracking...')
+  
   //console.log()
   if($('#searchNumber').val().trim() === ""){
     return;
   }
-  
+  changeBtnStyle('btnTrack','Tracking...')
   let docRef = db.collection('shipments').doc($('#searchNumber').val())
   docRef.get().then(function(doc) {
     if (doc.exists) {
-      revertBtnStyle('btnTrack')
+      revertBtnStyle('btnTrack','Track')
       $('#exampleModal').modal();
         let html = `<div class="alert alert-success">
         Dear <strong>${doc.data().name}</strong>, Your parcel has been submitted successfully.We will get back to you soon.
@@ -88,7 +88,7 @@ $('#btnTrack').click(()=>{
         <div class="card-body">
           <h5 class="card-title">Date : </h5>
           <p class="card-text">
-             ${new Date(doc.data().date)}
+             ${doc.data().date}
           </p>
           <h5 class="card-title">Customer Name : </h5>
           <p class="card-text">

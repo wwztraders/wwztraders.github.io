@@ -88,7 +88,7 @@ $('#btnTrack').click(()=>{
         <div class="card-body">
           <h5 class="card-title">Date : </h5>
           <p class="card-text">
-             ${new Date(doc.data().date)}
+             ${doc.data().date}
           </p>
           <h5 class="card-title">Customer Name : </h5>
           <p class="card-text">

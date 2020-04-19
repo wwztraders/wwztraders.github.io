@@ -47,11 +47,9 @@ $('#btnSave').click(()=>{
 })
 .then(function() {
     revertBtnStyle('btnSave','Save');
+    $('#trackingNumber').html(docName);
     $('#successMsg').show();
-    setTimeout(()=>{
-      $('#successMsg').hide();
-
-    },3000)
+    
 })
 .catch(function(error) {
   revertBtnStyle('btnSave','Save');
@@ -90,7 +88,7 @@ $('#btnTrack').click(()=>{
         <div class="card-body">
           <h5 class="card-title">Date : </h5>
           <p class="card-text">
-             ${doc.data().date}
+             ${new Date(doc.data().date)}
           </p>
           <h5 class="card-title">Customer Name : </h5>
           <p class="card-text">
@@ -102,11 +100,11 @@ $('#btnTrack').click(()=>{
           ${doc.data().phone}
           </p>              
           <h5 class="card-title">Address : </h5>
-          <p class="card-text">
+          <p class="card-text" style="white-space:pre-line;">
           ${doc.data().address}
           </p>
           <h5 class="card-title">Details : </h5>
-          <p class="card-text">
+          <p class="card-text" style="white-space:pre-line;">
           ${doc.data().details}
           </p>
         </div>

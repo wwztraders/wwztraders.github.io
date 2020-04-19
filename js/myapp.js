@@ -86,10 +86,7 @@ $('#btnTrack').click(()=>{
           Tracking No# ${$('#searchNumber').val()}
         </div>
         <div class="card-body">
-          <h5 class="card-title">Date : </h5>
-          <p class="card-text">
-             ${doc.data().date}
-          </p>
+          
           <h5 class="card-title">Customer Name : </h5>
           <p class="card-text">
           ${doc.data().name}

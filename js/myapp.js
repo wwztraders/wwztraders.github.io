@@ -67,12 +67,12 @@ $('#btnSave').click(()=>{
 $('#btnTrack').click(()=>{
   
 
-  changeBtnStyle('btnTrack','Tracking...')
+  
   //console.log()
   if($('#searchNumber').val().trim() === ""){
     return;
   }
-  
+  changeBtnStyle('btnTrack','Tracking...')
   let docRef = db.collection('shipments').doc($('#searchNumber').val())
   docRef.get().then(function(doc) {
     if (doc.exists) {

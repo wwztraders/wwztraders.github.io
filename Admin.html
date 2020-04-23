@@ -36,6 +36,7 @@
               <div class="table table-responsive">
                   <table class="table">
                     <tr>
+                      <th></th>
                       <th>Date</th>
                       <th>Consignment Number</th>
                       <th>Location</th>
@@ -139,11 +140,103 @@
           </div>
           <div class="modal-body" id="">
             
-            <input id="statusDrpDwn" class="form-control" placeholder="Enter Status"/><br> <button class="btn btn-info btn-block" onclick="changeStatus()" >Change Status</button>
-              
-         <br> <br><h1 class="text-center">OR</h1><br><br>
-              <button onclick="isArrived()" class="btn btn-success btn-block">is Arrived</button>
-            </select>
+            <div class="form-group">
+              <label for="formGroupExampleInput">Consignment Number</label>
+              <input type="text" class="form-control" id="UconsName" >
+             </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Full Name</label>
+                  <input type="text" class="form-control" id="Uname" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Status</label>
+                  <input type="text" class="form-control" id="Ustatus" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Departure Date</label>
+                  <input type="datetime" class="form-control" id="UdDate" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Arrival Date</label>
+                  <input type="datetime" class="form-control" id="UaDate" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Origin City</label>
+                  <input type="text" class="form-control" id="UoCity" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Origin Country</label>
+                  <input type="text" class="form-control" id="UoCountry" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Destination City</label>
+                  <input type="text" class="form-control" id="UdCity" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Zip Code</label>
+                  <input type="text" class="form-control" id="UzCode" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">Destination Country</label>
+                  <input type="text" class="form-control" id="UdCountry" >
+                </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput">PCS</label>
+                  <input type="text" class="form-control" id="Upcs" >
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Phone number</label>
+                    <input type="tel" class="form-control" id="Unumber" >
+                  </div>
+                <div class="form-group">
+                  <label for="formGroupExampleInput2">Comments</label>
+                  <textarea class="form-control" name="" id="Udetails" cols="30" rows=""></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="formGroupExampleInput2">Location</label>
+                    <textarea class="form-control" name="" id="Uaddress" cols="30" rows=""></textarea>
+                  </div>
+    
+                  <div class="form-group">
+                    <button class="btn btn-info btn-block" id="btnUpdate" onclick="updateData()">Update</button>
+                  </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Tracking Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="">
+            
+            <div class="table table-responsive">
+              <table class="table">
+                <tr>
+                  <th>Date</th>
+                  <th>Consignment Number</th>
+                  <th>Location</th>
+                  
+                  <th>Customer number</th>
+                  
+                  <th>Status</th>
+                  <th>Comments</th>
+                </tr>
+                <tbody id="shipmentHistory">
+
+                </tbody>
+              </table>
+             </div>
           </div>
           
         </div>

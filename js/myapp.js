@@ -10,6 +10,24 @@ var currentDocId = '';
 const showModal = (docId) => {
   $('#changeModal').modal();
   currentDocId = docId;
+  let docRef = db.collection("shipments").doc(currentDocId);
+  docRef.get().then((q)=>{
+    $('#Uname').val(q.data().name),
+    $('#Unumber').val(q.data().phone),
+    $('#Udetails').val(q.data().details),
+    $('#Uaddress').val(q.data().address),
+    $('#UdDate').val(q.data().departureDate),
+    $('#UaDate').val(q.data().arrivalDate),
+    $('#Ustatus').val(q.data().status),
+    $('#UconsName').val(q.data().consName),
+    $('#UoCity').val(q.data().oCity),
+    $('#UoCountry').val(q.data().oCountry),
+    $('#UdCity').val(q.data().dCity),
+    $('#UzCode').val(q.data().zCode),
+    $('#UdCountry').val(q.data().dCountry),
+    $('#Upcs').val(q.data().PCS)
+  })
+
 }
 
 const isArrived = () =>{
@@ -24,16 +42,42 @@ const isArrived = () =>{
   })
 }
 
-const changeStatus = () => {
+const updateData = () => {
+  console.log(currentDocId)
   let docRef = db.collection("shipments").doc(currentDocId);
-  docRef.set({
-    status:$('#statusDrpDwn').val()
-  },{
-    merge:true
-  }).then(()=>{
-    getAllData();
-  $('#changeModal').modal('hide');
+  docRef.get()
+  .then((q)=>{
+    if(q.data().history == null){
+      docRef.set({
+        history:[]
+      },{
+        merge:true
+      })
+    }
+    docRef.set({
+      name: $('#Uname').val(),
+      phone: $('#Unumber').val(),
+      details:$('#Udetails').val(),
+      address:$('#Uaddress').val(),
+      departureDate:$('#UdDate').val(),
+      arrivalDate:$('#UaDate').val(),
+      status:$('#Ustatus').val(),
+      consName:$('#UconsName').val(),
+      oCity:$('#UoCity').val(),
+      oCountry:$('#UoCountry').val(),
+      dCity:$('#UdCity').val(),
+      zCode:$('#UzCode').val(),
+      dCountry:$('#UdCountry').val(),
+      PCS:$('#Upcs').val(),
+      history:[...q.data().history,q.data()]
+    },{
+      merge:true
+    }).then(()=>{
+      getAllData();
+    $('#changeModal').modal('hide');
+    })
   })
+  
   
 
 }
@@ -48,6 +92,7 @@ const searchCons = () => {
     let html = '';
       querySnapshot.forEach(function(doc) {
           html+=`<tr>
+          <td><a href="#" onClick="showHistory('${doc.id}')">History</a></td>
           <td>${doc.data().departureDate}</td>
           <td>${doc.data().consName}</td>
           <td>${doc.data().address}</td>
@@ -98,6 +143,7 @@ const getAllData = ()=>{
     let html = '';
       querySnapshot.forEach(function(doc) {
           html+=`<tr>
+          <td><a href="#" onClick="showHistory('${doc.id}')">History</a></td>
           <td>${doc.data().departureDate}</td>
           <td>${doc.data().consName}</td>
           <td>${doc.data().address}</td>
@@ -110,6 +156,38 @@ const getAllData = ()=>{
       });
 
       $('#shipments').html(html);
+  })
+  .catch(function(error) {
+      console.log("Error getting documents: ", error);
+  });
+}
+
+
+const showHistory = (docId) =>{
+  $('#historyModal').modal('show')
+  db.collection("shipments").doc(docId)
+  .get()
+  .then(function(querySnapshot) {
+    let html = '';
+    if(querySnapshot.data().history == null || querySnapshot.data().history.lenght == 0)
+    
+    return;
+      querySnapshot.data().history.forEach(function(doc) {
+
+          html+=`<tr>
+          
+          <td>${doc.departureDate}</td>
+          <td>${doc.consName}</td>
+          <td>${doc.address}</td>
+          
+          <td>${doc.name}</td>
+          <td><span class="badge badge-info" style="cursor:pointer;">${doc.status}</span></td>
+          <td>${doc.details}</td>
+          </tr>`
+          
+      });
+
+      $('#shipmentHistory').html(html);
   })
   .catch(function(error) {
       console.log("Error getting documents: ", error);
@@ -167,7 +245,8 @@ $('#btnSave').click(()=>{
     dCity:$('#dCity').val(),
     zCode:$('#zCode').val(),
     dCountry:$('#dCountry').val(),
-    PCS:$('#pcs').val()
+    PCS:$('#pcs').val(),
+    history:[]
 })
 .then(function() {
     revertBtnStyle('btnSave','Save');
